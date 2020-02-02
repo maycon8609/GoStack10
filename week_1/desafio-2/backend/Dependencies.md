@@ -129,3 +129,4 @@ gerar ./.vscode/lounch.json no debug do vscode
     defazer todas as migration
 
       yarn sequelize db:migration:undo:all
+      
