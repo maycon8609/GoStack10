@@ -130,3 +130,24 @@ gerar ./.vscode/lounch.json no debug do vscode
 
       yarn sequelize db:migration:undo:all
       
+5° Seeders
+
+    Construindo Seeders
+
+      yarn sequelize seed:generate --name users
+
+    Popular tabela com Seeders
+
+      yarn sequelize db:seed:all
+
+    Desfazendo dos seeders mais recentes.
+
+      yarn sequelize db:seed:undo
+
+    Reverter um seed específico.
+  
+      yarn sequelize db:seed:undo --seed name-of-seed-as-in-data
+
+    Se desfazendo de todos a seeders gerados até o presente momento.
+      
+      yarn sequelize db:seed:undo:all
