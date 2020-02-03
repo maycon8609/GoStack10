@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 module.exports = {
   up: QueryInterface => {
     return QueryInterface.bulkInsert(
-      'request',
+      'users',
       [
         {
           name: 'Distribuidora FastFeet',
@@ -18,6 +18,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('request');
+    return queryInterface.dropTable('users');
   },
 };
