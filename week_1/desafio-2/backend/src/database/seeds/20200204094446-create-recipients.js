@@ -1,7 +1,7 @@
 module.exports = {
   up: queryInterface => {
     return queryInterface.bulkInsert(
-      'recipient',
+      'recipients',
       [
         {
           name: 'John Doe',
@@ -11,6 +11,8 @@ module.exports = {
           state: 'Piaui',
           city: 'teresina',
           cep: 64004215,
+          created_at: new Date(),
+          updated_at: new Date(),
         },
       ],
       {}
@@ -18,6 +20,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.bulkDelete('recipient', null, {});
+    return queryInterface.bulkDelete('recipients', null, {});
   },
 };
