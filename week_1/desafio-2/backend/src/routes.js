@@ -8,14 +8,14 @@ import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 
-routes.post('/users', UserController.store);
-routes.post('/sessions', SessionController.store);
+routes.post('/users', UserController.store); // cadastrar usuario
+routes.post('/sessions', SessionController.store); // criar sessao
 
-routes.use(authMiddleware);
+routes.use(authMiddleware); // validação de usuario logado
 
-routes.put('/users', UserController.update);
+routes.put('/users', UserController.update); // atualizar usuario
 
-routes.post('/recipients', RecipientsController.store);
-routes.put('/recipients', RecipientsController.update);
+routes.post('/recipients', RecipientsController.store); // criar pedido
+routes.put('/recipients/:id', RecipientsController.update); // atualizar pedido
 
 export default routes;

@@ -22,7 +22,21 @@ class RecipientController {
   }
 
   async update(req, res) {
-    const { id } = req.body;
+    const schema = Yup.object().shape({
+      name: Yup.string(),
+      street: Yup.string(),
+      number: Yup.number(),
+      complement: Yup.string(),
+      state: Yup.string(),
+      city: Yup.string(),
+      cep: Yup.number(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails' });
+    }
+
+    const { id } = req.params;
 
     const recipient = await Recipient.findOne({ where: { id } });
 
