@@ -25,7 +25,8 @@ routes.put('/users', UserController.update);
 
 routes.get('/providers', ProviderController.index);
 
-routes.get('/notification', NotificationController.index);
+routes.get('/notifications', NotificationController.index);
+routes.put('/notifications/:id', NotificationController.update);
 
 routes.get('/schedule', ScheduleController.index);
 
