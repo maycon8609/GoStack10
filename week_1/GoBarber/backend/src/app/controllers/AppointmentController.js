@@ -101,7 +101,7 @@ class AppointmentControler {
     // );
 
     const user = await User.findByPk(req.userId);
-    const formatedDate = format(hourStart, "'dia' dd 'de' mmmm', às' H:mm'h'", {
+    const formatedDate = format(hourStart, "'dia' dd 'de' MMMM', às' H:mm'h'", {
       locale: pt,
     });
 
