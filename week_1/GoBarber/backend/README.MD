@@ -9,3 +9,8 @@
 3° mongodb
 
   sudo docker run --name mongobarber -p 27017:27017 -d -t mongo
+
+4° Redis:alpine
+
+  sudo docker run --name redisbarber -p 6379:6379 -d -t redis:alpine
+
