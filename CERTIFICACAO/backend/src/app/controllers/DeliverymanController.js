@@ -13,7 +13,7 @@ class DeliverymanController {
     const userExist = await Deliveryman.findOne({ where: { email } });
 
     if (userExist) {
-      return res.status(401).json({ error: 'User ja registrado' });
+      return res.status(401).json({ error: ' Registered user ' });
     }
 
     const user = await Deliveryman.create(req.body);
