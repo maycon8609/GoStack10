@@ -22,9 +22,14 @@ class DeliverymanController {
   }
 
   async update(req, res) {
+    const { user } = req.params;
     const { email } = req.body;
 
-    const deliveryman = await Deliveryman.findByPk(req.userId);
+    const deliveryman = await Deliveryman.findByPk(user);
+
+    if (!deliveryman) {
+      return res.status(401).json({ error: 'Invalid ID' });
+    }
 
     if (email && email !== deliveryman.email) {
       const deliverymanExists = await Deliveryman.findOne({ where: { email } });
@@ -45,7 +50,19 @@ class DeliverymanController {
   }
 
   async destroy(req, res) {
-    return res.json({ delete: true });
+    const { user } = req.params;
+
+    const deliveryman = await Deliveryman.findOne({
+      where: { id: user },
+    });
+
+    if (!deliveryman) {
+      return res.status(401).json({ error: 'Deliveryman Invalid' });
+    }
+
+    await Deliveryman.destroy({ where: { id: user } });
+
+    return res.json({ message: 'Deleted' });
   }
 }
 
