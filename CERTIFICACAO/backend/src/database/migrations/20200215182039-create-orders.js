@@ -11,6 +11,20 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      deliveryman_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'deliverymans', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+      },
+      recipient_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'recipients', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+      },
       canceled_at: {
         type: Sequelize.DATE,
         allowNull: false,

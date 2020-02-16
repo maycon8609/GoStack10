@@ -8,7 +8,7 @@ import Deliveryman from '../app/models/Deliveryman';
 import Orders from '../app/models/Orders';
 import File from '../app/models/File';
 
-const models = [User, Recipients, Deliveryman, File, Orders];
+const models = [User, Recipients, Deliveryman, Orders, File];
 
 class DataBase {
   constructor() {

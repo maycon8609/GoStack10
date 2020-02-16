@@ -17,20 +17,20 @@ class Orders extends Model {
     return this;
   }
 
-  // static associate(models) {
-  //   this.belongsTo(models.Orders, {
-  //     foreignKey: 'recipient_id',
-  //     as: 'recipient',
-  //   });
-  //   this.belongsTo(models.Orders, {
-  //     foreignKey: 'deliveryman_id',
-  //     as: 'deliveryman',
-  //   });
-  //   this.belongsTo(models.Orders, {
-  //     foreignKey: 'signature_id',
-  //     as: 'file',
-  //   });
-  // }
+  static associate(models) {
+    this.belongsTo(models.Recipient, {
+      foreignKey: 'recipient_id',
+      as: 'recipient',
+    });
+    this.belongsTo(models.Deliveryman, {
+      foreignKey: 'deliveryman_id',
+      as: 'deliveryman',
+    });
+    this.belongsTo(models.File, {
+      foreignKey: 'signature_id',
+      as: 'avatar',
+    });
+  }
 }
 
 export default Orders;
