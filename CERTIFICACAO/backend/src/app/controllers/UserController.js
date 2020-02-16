@@ -78,6 +78,30 @@ class UserController {
       oldPassword,
     });
   }
+
+  async index(req, res) {
+    const users = await User.findAll({ order: ['id'] });
+
+    if (!users) {
+      return res.status(401).json({ error: 'No registered users' });
+    }
+
+    return res.json(users);
+  }
+
+  async delete(req, res) {
+    const { id } = req.params;
+
+    const user = await User.findByPk(id);
+
+    if (!user) {
+      return res.status(401).json({ error: 'User does not exist' });
+    }
+
+    await User.destroy({ where: { id } });
+
+    return res.json(user);
+  }
 }
 
 export default new UserController();

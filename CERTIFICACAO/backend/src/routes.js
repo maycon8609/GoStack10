@@ -21,7 +21,9 @@ routes.use(authMiddleware); // validation user
 
 // User
 
+routes.get('/users', UserController.index);
 routes.put('/users', UserController.update);
+routes.delete('/users/:id', UserController.delete);
 
 // Recipient
 
