@@ -18,9 +18,8 @@ class DataBase {
   init() {
     this.conection = new Sequelize(dataBaseConfig);
 
-    models
-      .map(model => model.init(this.conection))
-      .map(model => model.associate && model.associate(this.conection.models));
+    models.map(model => model.init(this.conection));
+    // .map(model => model.associate && model.associate(this.conection.models));
   }
 }
 

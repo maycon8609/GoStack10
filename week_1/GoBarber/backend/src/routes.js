@@ -36,6 +36,6 @@ routes.get('/appointments', AppointmentController.index);
 routes.post('/appointments', AppointmentController.store);
 routes.delete('/appointments/:id', AppointmentController.delete);
 
-routes.post('/files', upload.single('file'), FileController.strore);
+routes.post('/files', upload.single('file'), FileController.store);
 
 export default routes;
