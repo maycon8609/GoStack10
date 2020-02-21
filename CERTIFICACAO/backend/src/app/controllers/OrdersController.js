@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format, setHours, setMinutes } from 'date-fns';
 import * as Yup from 'yup';
 
 import Orders from '../models/Orders';
@@ -96,6 +96,17 @@ class OrdersController {
       return res.status(401).json({ error: 'User does not exist' });
     }
 
+    // Start Check to start_hour >= 08:00 && start_hour <= 18:00
+    const available = format(Number(start_date), 'HH:mm');
+    const minHour = format(setMinutes(setHours(new Date(), 8), 0), 'HH:mm');
+    const maxHour = format(setMinutes(setHours(new Date(), 18), 0), 'HH:mm');
+
+    if (available <= minHour || available >= maxHour) {
+      return res.status(401).json({ error: 'Time unavailable for pickup' });
+    }
+    // End Check
+
+    // start_date and end_date
     if (start_date && order.end_date === null) {
       const start = format(Number(start_date), "yyyy-MM-dd'T'HH:mm:ssxxx");
       req.body.start_date = start;
@@ -112,7 +123,7 @@ class OrdersController {
 
     const newOrder = await order.update(req.body);
 
-    return res.json(newOrder);
+    return res.json({ newOrder });
   }
 
   async delete(req, res) {
