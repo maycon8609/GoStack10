@@ -15,7 +15,7 @@ import authMiddleware from './app/middlewares/auth';
 const routes = new Router();
 const upload = multer(multerConfig);
 
-routes.post('/users', UserController.store); // register ADNIN
+routes.post('/users', UserController.store); // register ADMIN
 routes.post('/sessions', SessionController.store); // create session
 
 routes.use(authMiddleware); // validation user
@@ -47,5 +47,6 @@ routes.post('/files', upload.single('file'), FileController.store);
 routes.get('/orders', OrdersController.index);
 routes.post('/orders', OrdersController.store);
 routes.put('/orders/:id', OrdersController.update);
+routes.delete('/orders/:id', OrdersController.delete);
 
 export default routes;
