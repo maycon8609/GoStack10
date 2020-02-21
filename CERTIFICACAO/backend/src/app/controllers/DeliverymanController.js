@@ -60,9 +60,9 @@ class DeliverymanController {
       return res.status(401).json({ error: 'Deliveryman Invalid' });
     }
 
-    await Deliveryman.destroy({ where: { id: user } });
+    await deliveryman.destroy();
 
-    return res.json({ message: 'Deleted' });
+    return res.json(deliveryman);
   }
 }
 
