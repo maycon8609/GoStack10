@@ -1,3 +1,4 @@
+import * as Yup from 'yup';
 import Deliveryman from '../models/Deliveryman';
 
 class DeliverymanController {
@@ -8,6 +9,18 @@ class DeliverymanController {
   }
 
   async store(req, res) {
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      email: Yup.string()
+        .email()
+        .required(),
+      avatar_id: Yup.number().required(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails' });
+    }
+
     const { email } = req.body;
 
     const userExists = await Deliveryman.findOne({ where: { email } });
@@ -22,6 +35,16 @@ class DeliverymanController {
   }
 
   async update(req, res) {
+    const schema = Yup.object().shape({
+      name: Yup.string(),
+      email: Yup.string().email(),
+      avatar_id: Yup.number(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails' });
+    }
+
     const { user } = req.params;
     const { email } = req.body;
 
