@@ -6,7 +6,8 @@ import Recipients from '../models/Recipients';
 import Deliveryman from '../models/Deliveryman';
 import File from '../models/File';
 
-import Mail from '../../lib/mail';
+import MailOrder from '../jobs/MailOrder';
+import Queue from '../../lib/Queue';
 
 class OrdersController {
   async store(req, res) {
@@ -40,19 +41,13 @@ class OrdersController {
         {
           model: File,
           as: 'signature',
-          attributes: ['id', 'url'],
+          attributes: ['id', 'url', 'path'],
         },
       ],
     });
 
-    await Mail.sendMail({
-      to: `${order.deliveryman.name} <${order.deliveryman.email}>`,
-      subject: 'Agendamento realizado',
-      template: 'scheduling',
-      context: {
-        deliveryman: order.deliveryman.name,
-        product: order.product,
-      },
+    await Queue.add(MailOrder.key, {
+      order,
     });
 
     return res.json(order);
