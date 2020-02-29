@@ -6,6 +6,8 @@ import Recipients from '../models/Recipients';
 import Deliveryman from '../models/Deliveryman';
 import File from '../models/File';
 
+import Mail from '../../lib/mail';
+
 class OrdersController {
   async store(req, res) {
     const schema = Yup.object().shape({
@@ -23,7 +25,7 @@ class OrdersController {
 
     const order = await Orders.findOne({
       where: { id },
-      attributes: ['id'],
+      attributes: ['id', 'product'],
       include: [
         {
           model: Recipients,
@@ -33,7 +35,7 @@ class OrdersController {
         {
           model: Deliveryman,
           as: 'deliveryman',
-          attributes: ['id', 'name'],
+          attributes: ['id', 'name', 'email'],
         },
         {
           model: File,
@@ -41,6 +43,16 @@ class OrdersController {
           attributes: ['id', 'url'],
         },
       ],
+    });
+
+    await Mail.sendMail({
+      to: `${order.deliveryman.name} <${order.deliveryman.email}>`,
+      subject: 'Agendamento realizado',
+      template: 'scheduling',
+      context: {
+        deliveryman: order.deliveryman.name,
+        product: order.product,
+      },
     });
 
     return res.json(order);
