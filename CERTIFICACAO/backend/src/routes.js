@@ -11,42 +11,58 @@ import FileController from './app/controllers/FileController';
 import OrdersController from './app/controllers/OrdersController';
 
 import authMiddleware from './app/middlewares/auth';
+import isAdminMiddleware from './app/middlewares/isAdmin';
 
 const routes = new Router();
 const upload = multer(multerConfig);
 
-routes.post('/users', UserController.store); // register ADMIN
+routes.post('/users', UserController.store); // register users
 routes.post('/sessions', SessionController.store); // create session
 
-routes.use(authMiddleware); // validation user
+// validation user
+routes.use(authMiddleware);
 
-// User
+/** User
+ *  Routes put and delete use middleware check is_admin
+ */
 
 routes.get('/users', UserController.index);
-routes.put('/users', UserController.update);
-routes.delete('/users/:id', UserController.delete);
+routes.put('/users', isAdminMiddleware, UserController.update);
+routes.delete('/users/:id', isAdminMiddleware, UserController.delete);
 
 // Recipient
 
 routes.post('/recipients', RecipientsController.store);
 routes.put('/recipients/:id', RecipientsController.update);
 
-// Deliveryman
+/** All Deliveryman routes use middleWare check user is admin
+ *  Functionality reserved for administrators
+ */
 
-routes.get('/deliverymans', DeliverymanController.index);
-routes.post('/deliveryman', DeliverymanController.store);
-routes.put('/deliveryman/:user', DeliverymanController.update);
-routes.delete('/deliveryman/:user', DeliverymanController.destroy);
+routes.get('/deliverymans', isAdminMiddleware, DeliverymanController.index);
+routes.post('/deliveryman', isAdminMiddleware, DeliverymanController.store);
+routes.put(
+  '/deliveryman/:user',
+  isAdminMiddleware,
+  DeliverymanController.update
+);
+routes.delete(
+  '/deliveryman/:user',
+  isAdminMiddleware,
+  DeliverymanController.destroy
+);
 
 // File
 
 routes.post('/files', upload.single('file'), FileController.store);
 
-// Orders
+/** All Order routes use middleWare check user is admin
+ *  Functionality reserved for administrators
+ */
 
-routes.get('/orders', OrdersController.index);
-routes.post('/orders', OrdersController.store);
-routes.put('/orders/:id', OrdersController.update);
-routes.delete('/orders/:id', OrdersController.delete);
+routes.get('/orders', isAdminMiddleware, OrdersController.index);
+routes.post('/orders', isAdminMiddleware, OrdersController.store);
+routes.put('/orders/:id', isAdminMiddleware, OrdersController.update);
+routes.delete('/orders/:id', isAdminMiddleware, OrdersController.delete);
 
 export default routes;
