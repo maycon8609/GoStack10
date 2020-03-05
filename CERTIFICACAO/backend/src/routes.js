@@ -9,6 +9,7 @@ import RecipientsController from './app/controllers/RecipientsController';
 import DeliverymanController from './app/controllers/DeliverymanController';
 import FileController from './app/controllers/FileController';
 import OrdersController from './app/controllers/OrdersController';
+import ViewOrdersController from './app/controllers/ViewOrdersController';
 
 import authMiddleware from './app/middlewares/auth';
 import isAdminMiddleware from './app/middlewares/isAdmin';
@@ -64,5 +65,9 @@ routes.get('/orders', isAdminMiddleware, OrdersController.index);
 routes.post('/orders', isAdminMiddleware, OrdersController.store);
 routes.put('/orders/:id', isAdminMiddleware, OrdersController.update);
 routes.delete('/orders/:id', isAdminMiddleware, OrdersController.delete);
+
+// route for view oders
+
+routes.get('/deliveryman/:id/deliveries', ViewOrdersController.index);
 
 export default routes;
