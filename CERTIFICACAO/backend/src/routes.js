@@ -10,6 +10,7 @@ import DeliverymanController from './app/controllers/DeliverymanController';
 import FileController from './app/controllers/FileController';
 import OrdersController from './app/controllers/OrdersController';
 import ViewOrdersController from './app/controllers/ViewOrdersController';
+import ParcelsDeliveredController from './app/controllers/ParcelsDeliveredController';
 
 import authMiddleware from './app/middlewares/auth';
 import isAdminMiddleware from './app/middlewares/isAdmin';
@@ -68,6 +69,13 @@ routes.delete('/orders/:id', isAdminMiddleware, OrdersController.delete);
 
 // route for view oders
 
-routes.get('/deliveryman/:id/deliveries', ViewOrdersController.index);
+routes.get('/orders/:deliveryman_id', ViewOrdersController.index);
+
+// route for parcels delivered
+
+routes.get(
+  '/deliveryman/:deliveryman_id/deliveries',
+  ParcelsDeliveredController.index
+);
 
 export default routes;
