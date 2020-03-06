@@ -9,7 +9,6 @@ module.exports = {
           recipient_id: 1,
           created_at: new Date(),
           updated_at: new Date(),
-          signature_id: 1,
         },
         {
           product: 'salada',
@@ -17,7 +16,6 @@ module.exports = {
           recipient_id: 1,
           created_at: new Date(),
           updated_at: new Date(),
-          signature_id: 3,
         },
         {
           product: 'vitamina',
@@ -25,7 +23,6 @@ module.exports = {
           recipient_id: 2,
           created_at: new Date(),
           updated_at: new Date(),
-          signature_id: 2,
         },
         {
           product: 'caldo',
@@ -33,7 +30,6 @@ module.exports = {
           recipient_id: 2,
           created_at: new Date(),
           updated_at: new Date(),
-          signature_id: 3,
         },
       ],
       {}
