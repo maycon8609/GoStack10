@@ -11,7 +11,8 @@ import FileController from './app/controllers/FileController';
 import OrdersController from './app/controllers/OrdersController';
 import ViewOrdersController from './app/controllers/ViewOrdersController';
 import ParcelsDeliveredController from './app/controllers/ParcelsDeliveredController';
-import OrderStatusController from './app/controllers/OrderStatusController';
+import StartOrderController from './app/controllers/StartOrderController';
+import EndOrderController from './app/controllers/EndOrderController';
 
 import authMiddleware from './app/middlewares/auth';
 import isAdminMiddleware from './app/middlewares/isAdmin';
@@ -81,6 +82,11 @@ routes.get(
 
 // Order status controller
 
-routes.put('/order/:id_order/status_update', OrderStatusController.update);
+routes.put('/order/:id_order/start', StartOrderController.update);
+routes.put(
+  '/order/:id_order/end',
+  upload.single('file'),
+  EndOrderController.update
+);
 
 export default routes;
