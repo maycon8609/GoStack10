@@ -12,6 +12,10 @@ class StartOrderController {
       return res.status(401).json({ error: 'User does not exist' });
     }
 
+    if (order.start_date !== null) {
+      return res.status(401).json({ error: 'Order already started' });
+    }
+
     // Start Check to start_hour >= 08:00 && start_hour <= 18:00
     const available = format(Number(start_date), 'HH:mm');
     const minHour = format(setMinutes(setHours(new Date(), 8), 0), 'HH:mm');

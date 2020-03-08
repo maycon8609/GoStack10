@@ -18,12 +18,36 @@ class EndOrderController {
 
     const order = await Orders.findByPk(id_order);
 
+    // Duvidas se essa não seria uma solução melhor quanto as condicionais
+    // mas EsLint esta reclamando.......
+    // switch (order) {
+    //   case !order:
+    //     return res.status(401).json({ error: 'User does not exist' });
+    //     break;
+
+    //   case order.start_date === null:
+    //     return res.status(401).json({ error: 'Please set start date before' });
+    //     break;
+
+    //   case order.end_date !== null:
+    //     return res.status(401).json({ error: 'Order already completed' });
+    //     break;
+
+    //   case end_date:
+    //     return res.status(401).json({ error: 'Please set end date before' });
+    //     break;
+    // }
+
     if (!order) {
       return res.status(401).json({ error: 'User does not exist' });
     }
 
     if (order.start_date === null) {
       return res.status(401).json({ error: 'Please set start date before' });
+    }
+
+    if (order.end_date !== null) {
+      return res.status(401).json({ error: 'Order already completed' });
     }
 
     if (!end_date) {
