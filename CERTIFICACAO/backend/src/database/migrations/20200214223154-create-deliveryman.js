@@ -16,6 +16,11 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
+      number_orders: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        default: 0,
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

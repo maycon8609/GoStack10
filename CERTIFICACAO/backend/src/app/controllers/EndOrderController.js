@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import Orders from '../models/Orders';
 import File from '../models/File';
+import Deliveryman from '../models/Deliveryman';
 
 class EndOrderController {
   async update(req, res) {
@@ -13,30 +14,11 @@ class EndOrderController {
 
     req.body.signature_id = file.id;
 
+    // End Order
     const { id_order } = req.params;
     const { end_date } = req.query;
 
     const order = await Orders.findByPk(id_order);
-
-    // Duvidas se essa não seria uma solução melhor quanto as condicionais
-    // mas EsLint esta reclamando.......
-    // switch (order) {
-    //   case !order:
-    //     return res.status(401).json({ error: 'User does not exist' });
-    //     break;
-
-    //   case order.start_date === null:
-    //     return res.status(401).json({ error: 'Please set start date before' });
-    //     break;
-
-    //   case order.end_date !== null:
-    //     return res.status(401).json({ error: 'Order already completed' });
-    //     break;
-
-    //   case end_date:
-    //     return res.status(401).json({ error: 'Please set end date before' });
-    //     break;
-    // }
 
     if (!order) {
       return res.status(401).json({ error: 'User does not exist' });
@@ -66,6 +48,18 @@ class EndOrderController {
     }
 
     const newOrder = await order.update(req.body);
+
+    // Check number_orders
+    const deliveryman = await Deliveryman.findByPk(order.deliveryman_id);
+
+    if (!deliveryman) {
+      return res.status(401).json({ error: 'User not found' });
+    }
+
+    if (newOrder && deliveryman.number_orders > 0) {
+      deliveryman.number_orders -= 1;
+      await deliveryman.save();
+    }
 
     return res.json(newOrder);
   }
