@@ -13,6 +13,7 @@ import ViewOrdersController from './app/controllers/ViewOrdersController';
 import ParcelsDeliveredController from './app/controllers/ParcelsDeliveredController';
 import StartOrderController from './app/controllers/StartOrderController';
 import EndOrderController from './app/controllers/EndOrderController';
+import DeliveryProblemController from './app/controllers/DeliveryProblemController';
 
 import authMiddleware from './app/middlewares/auth';
 import isAdminMiddleware from './app/middlewares/isAdmin';
@@ -87,6 +88,18 @@ routes.put(
   '/order/:id_order/end',
   upload.single('file'),
   EndOrderController.update
+);
+
+// Delivery Problem
+
+routes.get('/delivery/:id_delivery/problems', DeliveryProblemController.index);
+routes.post(
+  '/delivery/:id_delivery/problems',
+  DeliveryProblemController.create
+);
+routes.delete(
+  '/problem/:id_problem/cancel-delivery',
+  DeliveryProblemController.destroy
 );
 
 export default routes;
