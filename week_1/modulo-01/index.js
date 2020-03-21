@@ -6,7 +6,7 @@ server.use(express.json());
 
 // Query params = ?teste=1
 // Route params = /users/1
-// Request body = {"name": "maycon", "key": "1234"}
+// Request body = {"name": "maycon", "key": "1234"} //
 
 // CRUD = Create, Read, Update, Delete
 
