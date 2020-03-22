@@ -20,7 +20,7 @@ ___
 3. Crie um banco de dados no `postgres` com o nome de `gobarber`;
 4. Preencha o arquivo `.env` com suas **variáveis ambiente**;
 ___
-## :wrench: Configurando dotenv
+## 🛠 Configurando dotenv
 
 
   `APP_URL=http://localhost:3333`
