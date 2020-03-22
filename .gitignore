@@ -105,5 +105,6 @@ dist
 
 
 # Imagens
-*.jpg
-*.png
+# *.jpg
+# *.png
+tmp/
